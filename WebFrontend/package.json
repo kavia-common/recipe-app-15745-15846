@@ -12,16 +12,21 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.0",
     "react-router-dom": "^6.26.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "5.0.1",
     "swr": "^2.2.5",
+    "web-vitals": "^2.1.4",
     "zod": "^3.23.8"
   },
   "scripts": {
+    "preinstall": "node -e \"try{require('fs').rmSync('node_modules/.cache',{recursive:true,force:true})}catch(e){}\"",
+    "prestart": "node scripts/check-deps.js",
     "start": "react-scripts start",
+    "prebuild": "node scripts/check-deps.js",
     "build": "react-scripts build",
     "test": "cross-env CI=true react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "node -e \"try{require.resolve('react-router-dom');console.log('react-router-dom resolved');}catch(e){console.error('react-router-dom missing');process.exit(1)}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +44,19 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "@eslint/js": "^9.9.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.5.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.35.1"
+  },
+  "resolutions": {
+    "react-router-dom": "6.26.1"
+  },
+  "engines": {
+    "node": ">=16 <=20",
+    "npm": ">=7"
   }
 }
