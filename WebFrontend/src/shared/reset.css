@@ -1,0 +1,2 @@
+* { box-sizing: border-box; }
+:focus-visible { outline: 3px solid #0ea5e9; outline-offset: 2px; }

@@ -1,82 +1,56 @@
-# Lightweight React Template for KAVIA
+# Recipe App — Web Frontend (React)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A responsive, accessible (WCAG 2.1 AA) React app for discovering, creating, organizing, and sharing recipes with meal planning, shopping lists, and social features.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Authentication: email login/registration, session persistence, profile & privacy settings
+- Recipes: browse/search with filters, detail pages, create/edit, organize into collections
+- Meal Planning: weekly planner with breakfast/lunch/dinner entries
+- Shopping Lists: generate from meal plan, view items
+- Social: community feed, ratings, comments, follow/unfollow
+- Accessibility: semantic structure, skip link, labels, ARIA, focus states, live regions
+- Responsive & performant: minimal dependencies, code organized by features
 
 ## Getting Started
 
-In the project directory, you can run:
+1) Install
+- npm install
 
-### `npm start`
+2) Configure environment
+- cp .env.example .env
+- Set REACT_APP_API_BASE_URL to your backend API base (e.g., https://api.example.com/api)
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3) Run
+- npm start
+- Open http://localhost:3000
 
-### `npm test`
+4) Test
+- npm test
 
-Launches the test runner in interactive watch mode.
+## Project Structure
 
-### `npm run build`
+- src/routes/AppRouter.jsx — All routes and providers
+- src/state/AuthContext.jsx — Authentication/session context
+- src/services/api.js — Axios client and API methods
+- src/shared/Layout.jsx (+ layout.css) — App shell and navigation
+- src/shared/components(.css).jsx — Reusable accessible components
+- src/views/** — Pages for auth, recipes, meal planner, shopping list, community
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Environment Variables
 
-## Customization
+- REACT_APP_API_BASE_URL: Backend API base URL
+- REACT_APP_OAUTH_REDIRECT_URI (optional): Social OAuth redirect URI
 
-### Colors
+## Accessibility
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+- Skip link to main content
+- Form fields with associated labels and error helpers
+- aria-live regions for status updates
+- Focus outlines and keyboard operability
+- Color contrast mindful styles
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
+## Notes
 
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- This frontend expects a RESTful backend with routes like /auth/login, /recipes, /meal-plan, etc.
+- Update API endpoints in src/services/api.js if your backend differs.

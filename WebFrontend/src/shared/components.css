@@ -1,0 +1,41 @@
+.field { margin-bottom: 12px; }
+.label { display: block; font-weight: 600; margin-bottom: 6px; }
+.input, .textarea, .select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #e5e7eb);
+  background: var(--bg, #fff);
+  color: var(--fg, #111);
+}
+.textarea { min-height: 120px; }
+.input:focus, .textarea:focus, .select:focus { outline: 2px solid #0ea5e9; border-color: #0ea5e9; }
+
+.helper { color: #6b7280; font-size: 12px; margin-top: 4px; }
+.error { color: #dc2626; font-size: 13px; margin-top: 6px; }
+
+.loader { display: inline-flex; align-items: center; gap: 8px; }
+.spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #e5e7eb; border-top-color: #0ea5e9;
+  display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg) } }
+
+.card {
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 160px auto;
+  background: var(--bg, #fff);
+}
+.card:focus { outline: 3px solid #0ea5e9; }
+.card-media { background: #f3f4f6; display:flex; align-items:center; justify-content:center; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.placeholder { font-size: 48px; }
+.card-content { padding: 12px; }
+.card-title { margin: 0; font-size: 18px; }
+.card-sub { margin: 4px 0 8px; color: #6b7280; font-size: 13px; }
+.card-desc { margin: 0; color: #374151; font-size: 14px; }

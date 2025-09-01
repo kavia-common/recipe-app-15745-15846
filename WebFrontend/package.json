@@ -1,17 +1,27 @@
 {
-  "name": "react-kavia",
-  "version": "0.1.0",
+  "name": "recipe-app-web-frontend",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
+    "axios": "^1.7.5",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.12",
     "react": "^18.2.0",
+    "react-aria-live": "^2.0.5",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-hook-form": "^7.53.0",
+    "react-router-dom": "^6.26.1",
+    "react-scripts": "^5.0.1",
+    "swr": "^2.2.5",
+    "zod": "^3.23.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "cross-env CI=true react-scripts test --watchAll=false",
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"

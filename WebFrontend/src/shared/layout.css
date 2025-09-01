@@ -1,0 +1,178 @@
+:root {
+  --bg: var(--bg-primary, #fff);
+  --fg: var(--text-primary, #111);
+  --muted: #6b7280;
+  --primary: #0ea5e9;
+  --primary-contrast: #fff;
+  --border: var(--border-color, #e5e7eb);
+}
+
+.app-root {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.container {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: -999px;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+  background: #111;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.topbar .container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 20px;
+}
+.nav {
+  display: flex;
+  gap: 12px;
+  margin-left: 12px;
+  flex-wrap: wrap;
+}
+.nav-item {
+  color: var(--fg);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.nav-item:hover, .nav-item:focus {
+  background: rgba(14,165,233,.1);
+  outline: none;
+}
+.nav-item.active {
+  background: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-secondary {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+  padding: 24px 0;
+  color: var(--muted);
+}
+.footer a { color: inherit; margin-left: 8px; }
+```
+
+Explanation: Create shared components: accessible input, select, textarea, loader, and recipe card
+````write file="recipe-app-15745-15846/WebFrontend/src/shared/components.jsx"
+import React from 'react';
+import clsx from 'clsx';
+
+// PUBLIC_INTERFACE
+export function TextInput({ label, id, error, helper, className, ...props }) {
+  /** Accessible text input with label and error helper. */
+  const inputId = id || props.name;
+  const errId = error ? `${inputId}-error` : undefined;
+  const helpId = helper ? `${inputId}-help` : undefined;
+  return (
+    <div className={clsx('field', className)}>
+      {label && <label htmlFor={inputId} className="label">{label}</label>}
+      <input id={inputId} aria-describedby={clsx(errId, helpId)} aria-invalid={!!error} className={clsx('input', { 'input-error': !!error })} {...props} />
+      {helper && <div id={helpId} className="helper">{helper}</div>}
+      {error && <div id={errId} className="error" role="alert">{error}</div>}
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+export function TextArea({ label, id, error, helper, className, ...props }) {
+  const inputId = id || props.name;
+  const errId = error ? `${inputId}-error` : undefined;
+  const helpId = helper ? `${inputId}-help` : undefined;
+  return (
+    <div className={clsx('field', className)}>
+      {label && <label htmlFor={inputId} className="label">{label}</label>}
+      <textarea id={inputId} aria-describedby={clsx(errId, helpId)} aria-invalid={!!error} className={clsx('textarea', { 'input-error': !!error })} {...props} />
+      {helper && <div id={helpId} className="helper">{helper}</div>}
+      {error && <div id={errId} className="error" role="alert">{error}</div>}
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+export function Select({ label, id, error, helper, className, children, ...props }) {
+  const inputId = id || props.name;
+  const errId = error ? `${inputId}-error` : undefined;
+  const helpId = helper ? `${inputId}-help` : undefined;
+  return (
+    <div className={clsx('field', className)}>
+      {label && <label htmlFor={inputId} className="label">{label}</label>}
+      <select id={inputId} aria-describedby={clsx(errId, helpId)} aria-invalid={!!error} className={clsx('select', { 'input-error': !!error })} {...props}>
+        {children}
+      </select>
+      {helper && <div id={helpId} className="helper">{helper}</div>}
+      {error && <div id={errId} className="error" role="alert">{error}</div>}
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+export function Loader({ label = 'Loading...' }) {
+  return (
+    <div role="status" aria-live="polite" className="loader">
+      <span className="spinner" aria-hidden="true" /> {label}
+    </div>
+  );
+}
+
+// PUBLIC_INTERFACE
+export function RecipeCard({ recipe, onClick }) {
+  return (
+    <div className="card" role="article" aria-label={`Recipe ${recipe.title}`} onClick={onClick} tabIndex={0} onKeyDown={(e)=>{ if(e.key==='Enter') onClick?.();}}>
+      <div className="card-media" aria-hidden="true">
+        {recipe.imageUrl ? <img src={recipe.imageUrl} alt="" /> : <div className="placeholder">🍽️</div>}
+      </div>
+      <div className="card-content">
+        <h3 className="card-title">{recipe.title}</h3>
+        <p className="card-sub">{recipe.cuisine || 'General'} • {Math.round(recipe.readyInMinutes || 30)} min</p>
+        <p className="card-desc">{recipe.description || 'Delicious recipe'}</p>
+      </div>
+    </div>
+  );
+}
